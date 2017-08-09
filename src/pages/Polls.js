@@ -11,7 +11,7 @@ class Polls extends Component {
 	                <List.Header>
 	                  Best Lord of the Rings Movie
 	                </List.Header>
-	                Choose which films rules them all.
+	                Choose which film rules them all.
 	              </List.Content>
 	            </List.Item>
 	            <List.Item>
