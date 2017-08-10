@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import 'semantic-ui-css/semantic.min.css';
 import { Menu } from 'semantic-ui-react';
-import { BrowserRouter} from 'react-router-dom';
+import { BrowserRouter, Switch, Route, Link} from 'react-router-dom';
 import Polls from './pages/Polls.js';
 import Poll from './pages/Poll.js';
 import Login from './pages/Login.js';
@@ -13,15 +13,18 @@ class App extends Component {
       <BrowserRouter>
         <div className="App">
           <Menu inverted>
-            <Menu.Item name='Polls' active='true'/>
+            <Link to='/polls'><Menu.Item active='true' name='Polls' /></Link>
             <Menu.Item name='New Poll' />
-            <Menu.Item name='Login' />
-            <Menu.Item name='Sign Up' />
+            <Link to='/login'><Menu.Item name='Login' /></Link>
+            <Link to='/signup'><Menu.Item name='Sign Up' /></Link>
           </Menu>
-          <Polls />
-          <Poll />
-          <Login />
-          <SignUp />
+          <Switch>
+            <Route exact path='/' component={Polls} />
+            <Route exact path='/polls' component={Polls} />
+            <Route path='/polls/:id' component={Poll} />
+            <Route path='/login' component={Login} />
+            <Route path='/signup' component={SignUp} />
+          </Switch>
         </div>
       </BrowserRouter>
     );
