@@ -6,6 +6,7 @@ import Polls from './pages/Polls.js';
 import Poll from './pages/Poll.js';
 import Login from './pages/Login.js';
 import SignUp from './pages/SignUp.js';
+import NewPoll from './pages/NewPoll.js';
 
 class App extends Component {
   render() {
@@ -13,13 +14,13 @@ class App extends Component {
       <BrowserRouter>
         <div className="App">
           <Menu inverted>
-            <Link to='/polls'><Menu.Item active='true' name='Polls' /></Link>
+            <Link to='/polls'><Menu.Item active name='Polls' /></Link>
             <Menu.Item name='New Poll' />
             <Link to='/login'><Menu.Item name='Login' /></Link>
             <Link to='/signup'><Menu.Item name='Sign Up' /></Link>
           </Menu>
           <Switch>
-            <Route exact path='/' component={Polls} />
+            <Route exact path='/' component={NewPoll} />
             <Route exact path='/polls' component={Polls} />
             <Route path='/polls/:id' component={Poll} />
             <Route path='/login' component={Login} />
