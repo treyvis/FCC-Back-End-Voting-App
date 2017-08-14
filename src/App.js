@@ -7,8 +7,14 @@ import Poll from './pages/Poll.js';
 import Login from './pages/Login.js';
 import SignUp from './pages/SignUp.js';
 import NewPoll from './pages/NewPoll.js';
+import polls from './database/polls.json';
 
 class App extends Component {
+
+  componentWillMount() {
+    console.log(polls);
+  }
+
   render() {
     return (
       <BrowserRouter>
@@ -23,7 +29,7 @@ class App extends Component {
             <Route exact path='/'>
               <Redirect to='/polls' />
             </Route>
-            <Route exact path='/polls' component={Polls} />
+            <Route exact path='/polls' component={Polls} polls={polls} />
             <Route path='/polls/:id' component={Poll} />
             <Route path='/login' component={Login} />
             <Route path='/signup' component={SignUp} />

@@ -1,0 +1,59 @@
+{"data": [
+	{
+		"_id":"00001",
+		"title": "Best Lord of the Rings Movie",
+		"description": "Choose which film rules them all.",
+		"choices": [
+			{
+				"name": "The Fellowship of the Ring",
+				"count": 103
+			},
+			{
+				"name": "The Two Towers",
+				"count": 56
+			},
+			{
+				"name": "The Return of the King",
+				"count": 317
+			}
+		]
+	},
+	{
+		"_id":"00002",
+		"title": "Favorite cuisine",
+		"description": "What do you eat the most?",
+		"choices": [
+			{
+				"name": "Mexican",
+				"count": 133
+			},
+			{
+				"name": "Chinese",
+				"count": 432
+			},
+			{
+				"name": "Italian",
+				"count": 124
+			}
+		]
+	},
+	{
+		"_id":"00003",
+		"title": "Favorite Color",
+		"description": "What can you tell about someone from a color?",
+		"choices": [
+			{
+				"name": "Red",
+				"count": 427
+			},
+			{
+				"name": "Yellow",
+				"count": 487
+			},
+			{
+				"name": "Blue",
+				"count": 492
+			}
+		]
+	}
+]}
