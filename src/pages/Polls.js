@@ -1,21 +1,23 @@
 import React, { Component } from 'react';
 import { Segment, List } from 'semantic-ui-react';
+import { Link } from 'react-router-dom';
 import polls from '../database/polls.json'
 
 class Polls extends Component {
 
 	render() {
-		console.log(polls);
 		const pollsList = polls.data.map((poll, index) => {
 			return (
-				<List.Item key={index}>
-	              <List.Content>
-	                <List.Header>
-	                  {poll.title}
-	                </List.Header>
-	                  {poll.description}
-	              </List.Content>
-	            </List.Item>
+				<Link to={this.props.match.url + '/' + index} key={index} >
+					<List.Item >
+		              <List.Content>
+		                <List.Header>
+		                  {poll.title}
+		                </List.Header>
+		                  {poll.description}
+		              </List.Content>
+		            </List.Item>
+		        </Link>
 			);
 		});
 		return(
