@@ -7,8 +7,17 @@ import Poll from './pages/Poll.js';
 import Login from './pages/Login.js';
 import SignUp from './pages/SignUp.js';
 import NewPoll from './pages/NewPoll.js';
+import Axios from 'axios';
 
 class App extends Component {
+
+  componentWillMount() {
+    Axios.get('http://localhost:3001').then((res) => {
+      console.log(res.data);
+    }).catch((error) => {
+      console.log(error);
+    });
+  }
 
   render() {
     return (
