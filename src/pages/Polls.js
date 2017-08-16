@@ -8,16 +8,16 @@ class Polls extends Component {
 	render() {
 		const pollsList = polls.data.map((poll, index) => {
 			return (
-				<Link to={this.props.match.url + '/' + index} key={index} >
-					<List.Item >
+				<List.Item >
+					<Link to={this.props.match.url + '/' + index} key={index} >
 		              <List.Content>
 		                <List.Header>
 		                  {poll.title}
 		                </List.Header>
 		                  {poll.description}
 		              </List.Content>
-		            </List.Item>
-		        </Link>
+		            </Link>
+		        </List.Item>
 			);
 		});
 		return(
