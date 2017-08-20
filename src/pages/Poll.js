@@ -2,7 +2,16 @@ import React, { Component } from 'react';
 import { Card, Button, Label } from 'semantic-ui-react';
 import polls from '../database/polls.json';
 
+const pollId = '5994d1cdf36d28126e468591';
+
 class Poll extends Component {
+	constructor(props) {
+		super(props);
+		this.state = {
+			poll: {}
+		};
+	}
+
 	render(){
 
 		const pollId = this.props.match.params.id;
