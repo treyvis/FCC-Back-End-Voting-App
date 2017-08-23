@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 
+const bodyParser = require('body-parser');
 const mongo = require('mongodb').MongoClient;
 const ObjectID = require('mongodb').ObjectID;
 const config = require('./config.json');
@@ -8,8 +9,11 @@ const mongoURI = 'mongodb://' + config.user + ':' + config.password + '@ds123351
 
 app.use((req, res, next) => {
 	res.header('Access-Control-Allow-Origin', '*');
+	res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
 	next();
 })
+
+app.use(bodyParser.json());
 
 app.get('/', (req,res) => {
 	res.json({message: "Success"});
@@ -38,6 +42,11 @@ app.get('/api/polls/:id', (req,res) => {
 		});
 	});
 })
+
+app.post('/api/polls', (req, res) => {
+	console.log(req.body);
+	res.send('You found me');
+});
 
 app.listen(3001, () => {
 	console.log('Listening on port 3001');

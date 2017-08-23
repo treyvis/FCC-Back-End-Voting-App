@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Segment, List } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
-import polls from '../database/polls.json';
 import Axios from 'axios';
 
 class Polls extends Component {

@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
 import { Card, Button, Label } from 'semantic-ui-react';
-import polls from '../database/polls.json';
 import Axios from 'axios';
-
-const pollId = '5994d1cdf36d28126e468591';
 
 class Poll extends Component {
 	constructor(props) {
@@ -11,6 +8,8 @@ class Poll extends Component {
 		this.state = {
 			poll: {}
 		};
+
+		this.voteClick = this.voteClick.bind(this);
 	}
 
 	componentWillMount() {
@@ -22,6 +21,17 @@ class Poll extends Component {
 		})
 	}
 
+	voteClick(id, choiceIndex) {
+		console.log('VoteClick called');
+		console.log(id, choiceIndex);
+		let poll = this.state.poll;
+		poll.choices[choiceIndex].count++;
+		Axios.post('http://localhost:3001/api/polls',{message: "This is the object"}).then((res) => {
+			console.log(res);
+		})
+		this.setState({poll});
+	}
+
 	render(){
 
 		let choicesList;
@@ -29,7 +39,7 @@ class Poll extends Component {
 		if (this.state.poll.choices) {
 			choicesList = this.state.poll.choices.map((choice, index) => {
 				return (
-				  <Button primary floated='left' key={index}>
+				  <Button primary floated='left' key={index} onClick={() => {this.voteClick(this.state.poll._id, index)}}>
 	                <Label horizontal>
 	                  {choice.count}
 	                </Label>
