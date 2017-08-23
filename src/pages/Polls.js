@@ -25,7 +25,7 @@ class Polls extends Component {
 		const pollsList = this.state.polls.map((poll, index) => {
 			return (
 				<List.Item  key={index}>
-					<Link to={this.props.match.url + '/' + index} >
+					<Link to={this.props.match.url + '/' + poll._id} >
 		              <List.Content>
 		                <List.Header>
 		                  {poll.title}
