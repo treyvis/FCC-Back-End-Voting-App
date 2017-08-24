@@ -24,18 +24,15 @@ class Poll extends Component {
 	voteClick(id, choiceIndex) {
 		console.log('VoteClick called');
 		console.log(id, choiceIndex);
-		let choices = this.state.poll.choices;
-		choices[choiceIndex].count++;
-		console.log(choices);
+		let poll = this.state.poll;
+		poll.choices[choiceIndex].count++; //Put this together
 		const request = {
 			id: id,
 			update: {
-				choices: this.state.poll.choices
+				choices: poll.choices
 			}
 		};
-
-		let poll = this.state.poll;
-		poll.choices[choiceIndex].count++;
+		console.log(request.update);
 		Axios.post('http://localhost:3001/api/polls', request).then((res) => {
 			console.log(res);
 		})
