@@ -22,21 +22,19 @@ class Poll extends Component {
 	}
 
 	voteClick(id, choiceIndex) {
-		console.log('VoteClick called');
-		console.log(id, choiceIndex);
 		let poll = this.state.poll;
-		poll.choices[choiceIndex].count++; //Put this together
+		poll.choices[choiceIndex].count++;
 		const request = {
 			id: id,
 			update: {
 				choices: poll.choices
 			}
 		};
-		console.log(request.update);
 		Axios.post('http://localhost:3001/api/polls', request).then((res) => {
-			console.log(res);
-		})
-		this.setState({poll});
+			if (res.status === 200) {
+				this.setState({poll});
+			}
+		});
 	}
 
 	render(){

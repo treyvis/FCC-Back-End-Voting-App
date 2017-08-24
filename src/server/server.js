@@ -45,7 +45,13 @@ app.get('/api/polls/:id', (req,res) => {
 
 app.post('/api/polls', (req, res) => {
 	console.log(req.body);
-	res.send('You found me');
+	mongo.connect(mongoURI, (err, db) => {
+		if (err) throw err;
+		console.log('Connected to database');
+		db.collection('polls').update({"_id": ObjectID(req.body.id)}, {$set: req.body.update}, ()=>{
+			res.json(req.body);
+		});
+	});
 });
 
 app.listen(3001, () => {
