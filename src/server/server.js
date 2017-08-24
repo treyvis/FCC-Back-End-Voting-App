@@ -9,7 +9,7 @@ const mongoURI = 'mongodb://' + config.user + ':' + config.password + '@ds123351
 
 app.use((req, res, next) => {
 	res.header('Access-Control-Allow-Origin', '*');
-	res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+	res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");3
 	next();
 })
 
