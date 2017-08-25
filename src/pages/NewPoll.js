@@ -21,6 +21,7 @@ class NewPoll extends Component {
 		this.removeChoice = this.removeChoice.bind(this);
 		this.inputIsEmpty = this.inputIsEmpty.bind(this);
 		this.validPoll = this.validPoll.bind(this);
+		this.createNewPoll = this.createNewPoll.bind(this);
 	}
 
 	nameUpdate(event){
@@ -64,7 +65,20 @@ class NewPoll extends Component {
 			this.state.choices[1].name !== '' ) {
 			return true;
 		}
-		return false
+		return false;
+	}
+
+	createNewPoll(){
+		if (this.validPoll){
+			const newPoll = {
+				title: this.state.name,
+				description: this.state.description,
+				choices: this.state.choices.filter((choice) => {
+					return choice.name !== '';
+				})
+			};
+			console.log(newPoll);
+		}
 	}
 
 	render(){
@@ -115,7 +129,7 @@ class NewPoll extends Component {
 					fluid />
 				{additionalChoices}
 				<Button icon='add circle' onClick={this.addChoice} />
-				<Button color={saveColor}> Save </Button>
+				<Button color={saveColor} onClick={this.createNewPoll}> Save </Button>
 			</Card>
 		);
 	}
