@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Card, Input, Button } from 'semantic-ui-react';
+import Axios from 'axios';
 
 class NewPoll extends Component {
 	constructor(props) {
@@ -73,11 +74,20 @@ class NewPoll extends Component {
 			const newPoll = {
 				title: this.state.name,
 				description: this.state.description,
-				choices: this.state.choices.filter((choice) => {
+				choices: this.state.choices.filter(choice => {
 					return choice.name !== '';
+				}).map(choice => {
+					return {
+						name: choice.name,
+						count: 0
+					};
 				})
 			};
 			console.log(newPoll);
+			Axios.post('http://localhost:3001/api/newpoll', newPoll).then(res => {
+				console.log(res);
+				window.location = ('/polls/' + res.data.id);
+			});
 		}
 	}
 

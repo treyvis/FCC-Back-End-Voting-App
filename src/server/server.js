@@ -54,6 +54,19 @@ app.post('/api/polls', (req, res) => {
 	});
 });
 
+app.post('/api/newpoll', (req, res) => {
+	console.log(req.body);
+	mongo.connect(mongoURI, (err, db) => {
+		if (err) throw err;
+		console.log('Connected to database');
+		db.collection('polls').insert(req.body, (err, result) => {
+			if (err) throw err;
+			console.log(result.insertedIds[0]);
+			res.json({id: result.insertedIds[0]});
+		});
+	});
+});
+
 app.listen(3001, () => {
 	console.log('Listening on port 3001');
 })
