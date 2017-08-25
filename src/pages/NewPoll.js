@@ -10,8 +10,6 @@ class NewPoll extends Component {
 			choices: [
 				{name: ''},
 				{name: ''},
-				{name: ''},
-				{name: ''},
 				{name: ''}
 			]
 		};
@@ -21,6 +19,8 @@ class NewPoll extends Component {
 		this.choiceUpdate = this.choiceUpdate.bind(this);
 		this.addChoice = this.addChoice.bind(this);
 		this.removeChoice = this.removeChoice.bind(this);
+		this.inputIsEmpty = this.inputIsEmpty.bind(this);
+		this.validPoll = this.validPoll.bind(this);
 	}
 
 	nameUpdate(event){
@@ -49,25 +49,73 @@ class NewPoll extends Component {
 		this.setState(choices);
 	}
 
+	inputIsEmpty(input){
+		if (input === '') {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	validPoll(){
+		if (this.state.name !== '' &&
+			this.state.description !== '' &&
+			this.state.choices[0].name !== '' &&
+			this.state.choices[1].name !== '' ) {
+			return true;
+		}
+		return false
+	}
+
 	render(){
+
+		const saveColor = (
+			() =>{
+				if (this.validPoll()){
+					return 'blue';
+				}
+				return 'red'
+			}
+		)();
 
 		let additionalChoices = [];
 		for (let i = 2; i < this.state.choices.length; i++) {
 			additionalChoices.push(
 				<Input label={'Choice ' + (i + 1)} key={i}
-					value={this.state.choices[i].name} onChange={(event) => {this.choiceUpdate(event, i)}}
-					fluid icon={{name: 'remove circle', link: true, onClick: () => {this.removeChoice(i)}}}/>
+					value={this.state.choices[i].name} 
+					onChange={(event) => {this.choiceUpdate(event, i)}}
+					icon={{name: 'remove circle', link: true, onClick: () => {this.removeChoice(i)}}}
+					error={(this.inputIsEmpty(this.state.choices[i].name))}
+					fluid/>
 			);
 		}
 
 		return(
 			<Card>
-				<Input label='Name' value={this.state.name} onChange={this.nameUpdate} fluid />
-				<Input label='Description' value={this.state.description} onChange={this.descriptionUpdate} fluid />
-				<Input label='Choice 1' value={this.state.choices[0].name} onChange={(event) => {this.choiceUpdate(event,0)}} fluid />
-				<Input label='Choice 2' value={this.state.choices[1].name} onChange={(event) => {this.choiceUpdate(event,1)}}fluid />
+				<Input label='Name' 
+					value={this.state.name} 
+					onChange={this.nameUpdate} 
+					error={(this.inputIsEmpty(this.state.name))} 
+					fluid />
+				<Input label='Description' 
+					value={this.state.description} 
+					onChange={this.descriptionUpdate}
+					error={(this.inputIsEmpty(this.state.description))} 
+					fluid />
+				<Input 
+					label='Choice 1' 
+					value={this.state.choices[0].name} 
+					onChange={(event) => {this.choiceUpdate(event,0)}} 
+					error={(this.inputIsEmpty(this.state.choices[0].name))}
+					fluid />
+				<Input label='Choice 2' 
+					value={this.state.choices[1].name} 
+					onChange={(event) => {this.choiceUpdate(event,1)}} 
+					error={(this.inputIsEmpty(this.state.choices[1].name))}
+					fluid />
 				{additionalChoices}
 				<Button icon='add circle' onClick={this.addChoice} />
+				<Button color={saveColor}> Save </Button>
 			</Card>
 		);
 	}
