@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Card, Button, Label } from 'semantic-ui-react';
 import Axios from 'axios';
+import { VictoryPie } from 'victory';
 
 class Poll extends Component {
 	constructor(props) {
@@ -40,6 +41,7 @@ class Poll extends Component {
 	render(){
 
 		let choicesList;
+		let choicesData;
 
 		if (this.state.poll.choices) {
 			choicesList = this.state.poll.choices.map((choice, index) => {
@@ -51,6 +53,12 @@ class Poll extends Component {
 	                {choice.name}
 	              </Button>
 				);
+			});
+			choicesData = this.state.poll.choices.map( choice => {
+				return {
+					x: choice.count,
+					y: choice.count
+				};
 			});
 		}
 
@@ -69,6 +77,11 @@ class Poll extends Component {
 		            </Button.Group>
 	            </Card.Content>
 	          </Card.Content>
+	          <VictoryPie 
+	          	data={choicesData}
+	          	innerRadius={100}
+	          	padAngle={4}
+	          />
 	        </Card>
 		);
 	}
