@@ -7,8 +7,22 @@ import Poll from './pages/Poll.js';
 import Login from './pages/Login.js';
 import SignUp from './pages/SignUp.js';
 import NewPoll from './pages/NewPoll.js';
+import firebase from 'firebase';
 
 class App extends Component {
+
+  componentWillMount(){
+    const config = {
+      apiKey: "AIzaSyCqeWDzpsIExJGteP5FFme0CHPCuNdDgYQ",
+      authDomain: "fcc-voting-app-23c6b.firebaseapp.com",
+      databaseURL: "https://fcc-voting-app-23c6b.firebaseio.com",
+      projectId: "fcc-voting-app-23c6b",
+      storageBucket: "fcc-voting-app-23c6b.appspot.com",
+      messagingSenderId: "308435312312"
+    };
+    firebase.initializeApp(config);
+    console.log(firebase);
+  }
 
   render() {
     return (

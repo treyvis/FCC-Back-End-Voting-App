@@ -67,6 +67,11 @@ app.post('/api/newpoll', (req, res) => {
 	});
 });
 
+app.post('/api/login', (req, res) => {
+	console.log(req.body);
+	res.send('login called server');
+});
+
 app.listen(3001, () => {
 	console.log('Listening on port 3001');
 })

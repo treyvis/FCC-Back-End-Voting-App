@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Card, Input, Button } from 'semantic-ui-react';
+import Axios from 'axios';
 
 class Login extends Component {
 
@@ -21,7 +22,11 @@ class Login extends Component {
 	}
 
 	login() {
-
+		let state = this.state;
+		console.log(state);
+		Axios.post('http://localhost:3001/api/login', state).then(res => {
+			console.log(res);
+		});
 	}
 
 	render(){
@@ -33,11 +38,12 @@ class Login extends Component {
 	            </Card.Header>
 	            <Input label='Email' fluid
 		            value={this.state.email} 
-		            onChange={(event) => {this.updateInput(event, 'email')}}/>
-	            <Input label='Password' fluid
+		            onChange={(event) => {this.updateInput(event, 'email')}} />
+	            <Input label='Password' fluid type='password'
 		            value={this.state.password} 
-		            onChange={(event) => {this.updateInput(event, 'password')}}/>
-	            <Button content='Submit' primary fluid/>
+		            onChange={(event) => {this.updateInput(event, 'password')}} />
+	            <Button content='Submit' primary fluid
+	            	onClick={this.login} />
 	          </Card.Content>
 	        </Card>
 		);
