@@ -21,7 +21,6 @@ class App extends Component {
       messagingSenderId: "308435312312"
     };
     firebase.initializeApp(config);
-    console.log(firebase);
   }
 
   render() {
@@ -35,14 +34,14 @@ class App extends Component {
             <Link to='/signup'><Menu.Item name='Sign Up' /></Link>
           </Menu>
           <Switch>
-            <Route exact path='/'>
-              <Redirect to='/polls' />
-            </Route>
             <Route exact path='/polls' component={Polls} />
             <Route path='/polls/:id' component={Poll} />
             <Route path='/login' component={Login} />
             <Route path='/signup' component={SignUp} />
             <Route path='/newpoll' component={NewPoll} />
+            <Route exact path='/'>
+              <Redirect to='/polls' />
+            </Route>
           </Switch>
         </div>
       </BrowserRouter>

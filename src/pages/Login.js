@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Card, Input, Button } from 'semantic-ui-react';
 import Axios from 'axios';
+import firebase from 'firebase';
 
 class Login extends Component {
 
@@ -24,8 +25,21 @@ class Login extends Component {
 	login() {
 		let state = this.state;
 		console.log(state);
-		Axios.post('http://localhost:3001/api/login', state).then(res => {
-			console.log(res);
+		firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password).then( res => {
+			console.log("Signed in:", res.uid);
+		}).catch(error => {
+			console.log(error);
+		});
+	}
+
+	componentWillMount() {
+
+		firebase.auth().onAuthStateChanged((user) => {
+		  if (user) {
+		    console.log('user signed in');
+		  } else {
+		    console.log('user not signed in');
+		  }
 		});
 	}
 
