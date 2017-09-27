@@ -97,7 +97,7 @@ class NewPoll extends Component {
 				})
 			};
 			console.log(newPoll);
-			Axios.post('http://localhost:3001/api/newpoll', newPoll).then(res => {
+			Axios.post('/api/newpoll', newPoll).then(res => {
 				console.log(res);
 				window.location = ('/polls/' + res.data.id);
 			});

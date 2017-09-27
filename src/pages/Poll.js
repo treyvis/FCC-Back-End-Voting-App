@@ -24,7 +24,7 @@ class Poll extends Component {
 			}
 		});
 
-		Axios.get('http://localhost:3001/api/polls/' + this.props.match.params.id).then((res) => {
+		Axios.get('/api/polls/' + this.props.match.params.id).then((res) => {
 			console.log(res.data);
 			this.setState({poll: res.data});
 		}).catch((err) => {
@@ -41,7 +41,7 @@ class Poll extends Component {
 				choices: poll.choices
 			}
 		};
-		Axios.post('http://localhost:3001/api/polls', request).then((res) => {
+		Axios.post('/api/polls', request).then((res) => {
 			if (res.status === 200) {
 				this.setState({poll});
 			}

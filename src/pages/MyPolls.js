@@ -18,7 +18,7 @@ class MyPolls extends Component {
 		  	console.log(user.uid);
 		  	const uid = {"uid": user.uid};
 		  	console.log(uid);
-		    Axios.post('http://localhost:3001/api/mypolls', uid).then((res) => {
+		    Axios.post('/api/mypolls', uid).then((res) => {
 				console.log(res.data);
 				this.setState({polls: res.data});
 			}).catch((err) => {

@@ -12,7 +12,7 @@ class Polls extends Component {
 	}
 
 	componentWillMount() {
-		Axios.get('http://localhost:3001/api/polls').then((res) => {
+		Axios.get('/api/polls').then((res) => {
 			console.log(res.data);
 			this.setState({polls: res.data});
 		}).catch((err) => {

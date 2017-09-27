@@ -36,7 +36,7 @@ class EditPoll extends Component {
 		  }
 		});
 
-		Axios.get('http://localhost:3001/api/polls/' + this.props.match.params.id).then((res) => {
+		Axios.get('/api/polls/' + this.props.match.params.id).then((res) => {
 			console.log(res.data);
 			this.setState({
 				name: res.data.title,
@@ -104,7 +104,7 @@ class EditPoll extends Component {
 				}
 			};
 			console.log(request);
-			Axios.post('http://localhost:3001/api/polls', request).then(res => {
+			Axios.post('/api/polls', request).then(res => {
 				console.log(res);
 				window.location = ('/polls/' + res.data.id);
 			});
