@@ -1,19 +1,29 @@
 import React, { Component } from 'react';
-import { Card, Button, Label } from 'semantic-ui-react';
+import { Card, Button, Label, Icon } from 'semantic-ui-react';
+import { Link } from 'react-router-dom';
 import Axios from 'axios';
 import { VictoryPie } from 'victory';
+import firebase from 'firebase';
+
 
 class Poll extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			poll: {}
+			poll: {},
+			uid: ''
 		};
 
 		this.voteClick = this.voteClick.bind(this);
 	}
 
 	componentWillMount() {
+		firebase.auth().onAuthStateChanged((user) => {
+			if (user) {
+				this.setState({uid: user.uid});
+			}
+		});
+
 		Axios.get('http://localhost:3001/api/polls/' + this.props.match.params.id).then((res) => {
 			console.log(res.data);
 			this.setState({poll: res.data});
@@ -62,11 +72,24 @@ class Poll extends Component {
 			});
 		}
 
+		const edit = (() => {
+			if (this.state.uid) {
+				return (
+					<Link to={'/editpoll/' + this.props.match.params.id}>
+						<Icon name='edit' link style={{float: 'right'}}/>
+					</Link>
+				);
+			} else {
+				return;
+			}
+		})();
+
 		return(
-			<Card>
+			<Card style={{margin: '0 auto'}}>
 	          <Card.Content>
 	            <Card.Header>
 	              {this.state.poll.title}
+	              {edit}
 	            </Card.Header>
 	            <Card.Description>
 	              {this.state.poll.description}

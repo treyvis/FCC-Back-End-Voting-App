@@ -35,8 +35,9 @@ class Polls extends Component {
 		        </List.Item>
 			);
 		});
+
 		return(
-			<Segment inverted>
+			<Segment inverted style={{margin: '10px'}}>
 	          <List divided inverted relaxed>
 	            {pollsList}
 	          </List>

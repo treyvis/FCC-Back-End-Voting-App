@@ -54,7 +54,7 @@ class SignUp extends Component {
 
 	render(){
 		return(
-			<Card>
+			<Card style={{margin: '0 auto'}}>
 	          <Card.Content>
 	            <Card.Header>
 	              Sign Up!

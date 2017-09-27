@@ -8,6 +8,7 @@ import Login from './pages/Login.js';
 import SignUp from './pages/SignUp.js';
 import NewPoll from './pages/NewPoll.js';
 import MyPolls from './pages/MyPolls.js';
+import EditPoll from './pages/EditPoll.js';
 import firebase from 'firebase';
 
 class App extends Component {
@@ -63,7 +64,7 @@ class App extends Component {
 
     const emailSignUp = (() => {
       if (this.state.email) {
-        return (<Link to='/mypolls'><Menu.Item>My Polls</Menu.Item></Link>);
+        return (<Link to='/mypolls'><Menu.Item >My Polls</Menu.Item></Link>);
       } else {
         return(<Link to='/signup'><Menu.Item name='Sign Up' /></Link>);
       }
@@ -72,8 +73,8 @@ class App extends Component {
     return (
       <BrowserRouter>
         <div className="App">
-          <Menu inverted>
-            <Link to='/polls'><Menu.Item active name='Polls' /></Link>
+          <Menu inverted style={{margin: '10px'}}>
+            <Link to='/polls'><Menu.Item name='Polls' /></Link>
             <Link to='/newpoll'><Menu.Item name='New Poll' /></Link>
             {logginLogout}
             {emailSignUp}
@@ -85,6 +86,7 @@ class App extends Component {
             <Route path='/signup' component={SignUp} />
             <Route path='/newpoll' component={NewPoll} />
             <Route path='/mypolls' component={MyPolls} />
+            <Route path='/editpoll/:id' component={EditPoll} />
             <Route exact path='/'>
               <Redirect to='/polls' />
             </Route>

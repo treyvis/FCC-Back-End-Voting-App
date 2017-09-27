@@ -3,7 +3,7 @@ import { Card, Input, Button } from 'semantic-ui-react';
 import Axios from 'axios';
 import firebase from 'firebase';
 
-class NewPoll extends Component {
+class EditPoll extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -24,7 +24,7 @@ class NewPoll extends Component {
 		this.removeChoice = this.removeChoice.bind(this);
 		this.inputIsEmpty = this.inputIsEmpty.bind(this);
 		this.validPoll = this.validPoll.bind(this);
-		this.createNewPoll = this.createNewPoll.bind(this);
+		this.updatePoll = this.updatePoll.bind(this);
 	}
 
 	componentWillMount() {
@@ -35,35 +35,46 @@ class NewPoll extends Component {
 		  	window.location = '/login';
 		  }
 		});
+
+		Axios.get('http://localhost:3001/api/polls/' + this.props.match.params.id).then((res) => {
+			console.log(res.data);
+			this.setState({
+				name: res.data.title,
+				description: res.data.description,
+				choices: res.data.choices
+			});
+		}).catch((err) => {
+			console.log(err);
+		})
 	}
 
-	nameUpdate(event){
+	nameUpdate(event) {
 		this.setState({name: event.target.value});
 	}
 
-	descriptionUpdate(event){
+	descriptionUpdate(event) {
 		this.setState({description: event.target.value});
 	}
 
-	choiceUpdate(event, index){
+	choiceUpdate(event, index) {
 		let choices = this.state.choices;
 		choices[index].name = event.target.value;
 		this.setState({choices});
 	}
 
-	addChoice(){
+	addChoice() {
 		let choices = this.state.choices;
 		choices.push({name: ''});
 		this.setState(choices);
 	}
 
-	removeChoice(index){
+	removeChoice(index) {
 		let choices = this.state.choices;
 		choices.splice(index, 1);
 		this.setState(choices);
 	}
 
-	inputIsEmpty(input){
+	inputIsEmpty(input) {
 		if (input === '') {
 			return true;
 		} else {
@@ -71,7 +82,7 @@ class NewPoll extends Component {
 		}
 	}
 
-	validPoll(){
+	validPoll() {
 		if (this.state.name !== '' &&
 			this.state.description !== '' &&
 			this.state.choices[0].name !== '' &&
@@ -81,23 +92,19 @@ class NewPoll extends Component {
 		return false;
 	}
 
-	createNewPoll(){
+	updatePoll() {
 		if (this.validPoll){
-			const newPoll = {
-				title: this.state.name,
-				description: this.state.description,
-				uid: this.state.uid,
-				choices: this.state.choices.filter(choice => {
-					return choice.name !== '';
-				}).map(choice => {
-					return {
-						name: choice.name,
-						count: 0
-					};
-				})
+			const request = {
+				id: this.props.match.params.id,
+				update: {
+					title: this.state.name,
+					description: this.state.description,
+					uid: this.state.uid,
+					choices: this.state.choices
+				}
 			};
-			console.log(newPoll);
-			Axios.post('http://localhost:3001/api/newpoll', newPoll).then(res => {
+			console.log(request);
+			Axios.post('http://localhost:3001/api/polls', request).then(res => {
 				console.log(res);
 				window.location = ('/polls/' + res.data.id);
 			});
@@ -128,7 +135,7 @@ class NewPoll extends Component {
 		}
 
 		return(
-			<Card>
+			<Card style={{margin: '0 auto'}}>
 				<Input label='Name' 
 					value={this.state.name} 
 					onChange={this.nameUpdate} 
@@ -152,10 +159,10 @@ class NewPoll extends Component {
 					fluid />
 				{additionalChoices}
 				<Button icon='add circle' onClick={this.addChoice} />
-				<Button color={saveColor} onClick={this.createNewPoll}> Save </Button>
+				<Button color={saveColor} onClick={this.updatePoll}> Save </Button>
 			</Card>
 		);
 	}
 }
 
-export default NewPoll;
+export default EditPoll;

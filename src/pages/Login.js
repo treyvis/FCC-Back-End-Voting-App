@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Card, Input, Button } from 'semantic-ui-react';
-import Axios from 'axios';
 import firebase from 'firebase';
 
 class Login extends Component {
@@ -42,7 +41,7 @@ class Login extends Component {
 
 	render(){
 		return(
-			<Card>
+			<Card style={{margin: '0 auto'}}>
 	          <Card.Content>
 	            <Card.Header>
 	              Login!

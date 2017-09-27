@@ -30,6 +30,18 @@ app.get('/api/polls', (req, res) => {
 	});
 });
 
+app.post('/api/mypolls', (req, res) => {
+	console.log(req.body.uid);
+	mongo.connect(mongoURI, (err, db) => {
+		if (err) throw err;
+		console.log('Connected to mypolls database');
+		db.collection('polls').find({uid:{$eq: req.body.uid}}).toArray((err, docs) => {
+			if (err) throw err;
+			res.json(docs);
+		});
+	});
+});
+
 app.get('/api/polls/:id', (req,res) => {
 	console.log(req.params);
 	mongo.connect(mongoURI, (err, db) => {
