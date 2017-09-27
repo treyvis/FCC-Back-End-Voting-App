@@ -10,6 +10,13 @@ import NewPoll from './pages/NewPoll.js';
 import firebase from 'firebase';
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      uid: '',
+      email: ''
+    };
+  }
 
   componentWillMount(){
     const config = {
@@ -21,17 +28,45 @@ class App extends Component {
       messagingSenderId: "308435312312"
     };
     firebase.initializeApp(config);
+    firebase.auth().onAuthStateChanged( user => {
+      if (user) {
+        console.log(user);
+        this.setState({
+          uid: user.uid,
+          email: user.email
+        });
+      } else {
+        // No user is signed in.
+      }
+    });
   }
 
   render() {
+
+    const logginLogout = (() => {
+      if (this.state.email) {
+        return (<Link to='#'><Menu.Item name='Logout' /></Link> );
+      } else {
+        return (<Link to='/login'><Menu.Item name='Login' /></Link> );
+      }
+    })();
+
+    const emailSignUp = (() => {
+      if (this.state.email) {
+        return (<Link to='#'><Menu.Item>{this.state.email}</Menu.Item></Link>);
+      } else {
+        return(<Link to='/signup'><Menu.Item name='Sign Up' /></Link>);
+      }
+    })();
+
     return (
       <BrowserRouter>
         <div className="App">
           <Menu inverted>
             <Link to='/polls'><Menu.Item active name='Polls' /></Link>
             <Link to='/newpoll'><Menu.Item name='New Poll' /></Link>
-            <Link to='/login'><Menu.Item name='Login' /></Link>
-            <Link to='/signup'><Menu.Item name='Sign Up' /></Link>
+            {logginLogout}
+            {emailSignUp}
           </Menu>
           <Switch>
             <Route exact path='/polls' component={Polls} />
