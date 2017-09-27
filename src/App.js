@@ -33,7 +33,6 @@ class App extends Component {
     firebase.initializeApp(config);
     firebase.auth().onAuthStateChanged( user => {
       if (user) {
-        console.log(user);
         this.setState({
           uid: user.uid,
           email: user.email
