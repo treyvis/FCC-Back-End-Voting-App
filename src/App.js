@@ -7,6 +7,7 @@ import Poll from './pages/Poll.js';
 import Login from './pages/Login.js';
 import SignUp from './pages/SignUp.js';
 import NewPoll from './pages/NewPoll.js';
+import MyPolls from './pages/MyPolls.js';
 import firebase from 'firebase';
 
 class App extends Component {
@@ -62,7 +63,7 @@ class App extends Component {
 
     const emailSignUp = (() => {
       if (this.state.email) {
-        return (<Link to='#'><Menu.Item>My Polls</Menu.Item></Link>);
+        return (<Link to='/mypolls'><Menu.Item>My Polls</Menu.Item></Link>);
       } else {
         return(<Link to='/signup'><Menu.Item name='Sign Up' /></Link>);
       }
@@ -83,6 +84,7 @@ class App extends Component {
             <Route path='/login' component={Login} />
             <Route path='/signup' component={SignUp} />
             <Route path='/newpoll' component={NewPoll} />
+            <Route path='/mypolls' component={MyPolls} />
             <Route exact path='/'>
               <Redirect to='/polls' />
             </Route>

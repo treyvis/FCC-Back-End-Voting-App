@@ -17,6 +17,14 @@ class SignUp extends Component {
 		this.signUp = this.signUp.bind(this);
 	}
 
+	componentWillMount() {
+		firebase.auth().onAuthStateChanged((user) => {
+		  if (user) {
+		    window.location = '/polls';
+		  }
+		});
+	}
+
 	updateInput(event, input){
 		let state = this.state;
 		state[input] = event.target.value;
