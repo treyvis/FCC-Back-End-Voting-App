@@ -62,7 +62,7 @@ class App extends Component {
 
     const emailSignUp = (() => {
       if (this.state.email) {
-        return (<Link to='#'><Menu.Item>{this.state.email}</Menu.Item></Link>);
+        return (<Link to='#'><Menu.Item>My Polls</Menu.Item></Link>);
       } else {
         return(<Link to='/signup'><Menu.Item name='Sign Up' /></Link>);
       }

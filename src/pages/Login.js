@@ -26,7 +26,6 @@ class Login extends Component {
 		let state = this.state;
 		console.log(state);
 		firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password).then( res => {
-			console.log("Signed in:", res.uid);
 			window.location = "/polls";
 		}).catch(error => {
 			console.log(error);
@@ -34,12 +33,9 @@ class Login extends Component {
 	}
 
 	componentWillMount() {
-
 		firebase.auth().onAuthStateChanged((user) => {
 		  if (user) {
-		    console.log('user signed in');
-		  } else {
-		    console.log('user not signed in');
+		    window.location = '/polls';
 		  }
 		});
 	}
