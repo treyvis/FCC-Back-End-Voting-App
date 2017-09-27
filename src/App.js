@@ -16,6 +16,9 @@ class App extends Component {
       uid: '',
       email: ''
     };
+
+    this.logout = this.logout.bind(this);
+
   }
 
   componentWillMount(){
@@ -35,9 +38,16 @@ class App extends Component {
           uid: user.uid,
           email: user.email
         });
-      } else {
-        // No user is signed in.
       }
+    });
+  }
+
+  logout() {
+    firebase.auth().signOut().then(() => {
+      this.setState({
+        uid: '',
+        email: ''
+      });
     });
   }
 
@@ -45,7 +55,7 @@ class App extends Component {
 
     const logginLogout = (() => {
       if (this.state.email) {
-        return (<Link to='#'><Menu.Item name='Logout' /></Link> );
+        return (<Link  onClick={this.logout} to='#'><Menu.Item name='Logout' /></Link> );
       } else {
         return (<Link to='/login'><Menu.Item name='Login' /></Link> );
       }
