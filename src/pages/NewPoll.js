@@ -128,7 +128,7 @@ class NewPoll extends Component {
 		}
 
 		return(
-			<Card>
+			<Card style={{margin: '0 auto'}}>
 				<Input label='Name' 
 					value={this.state.name} 
 					onChange={this.nameUpdate} 
